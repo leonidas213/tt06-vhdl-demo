@@ -156,14 +156,14 @@ entity DIG_Add is
 end entity;
 
 architecture Behavioral of DIG_Add is
-  function FullAdder(A, B, Cin : std_logic) return std_logic is
+  function FullAdder(input1, input2, Cin : std_logic) return std_logic is
   begin
-    return (A xor B xor Cin);
+    return (input1 xor input2 xor Cin);
   end function;
 
-  function CarryOut(A, B, Cin : std_logic) return std_logic is
+  function CarryOut(input1, input2, Cin : std_logic) return std_logic is
   begin
-    return ((A and B) or (Cin and (A xor B)));
+    return ((input1 and input2) or (Cin and (input1 xor input2)));
   end function;
   signal Carry : std_logic;
   signal temp  : std_logic_vector(Bits downto 0);
@@ -906,14 +906,14 @@ entity DIG_Sub is
 end entity;
 
 architecture Behavioral of DIG_Sub is
-  function FullSubtractor(A, B, Bin : std_logic) return std_logic is
+  function FullSubtractor(input1, input2, Bin : std_logic) return std_logic is
     begin
-        return (A xor B xor Bin);
+        return (input1 xor input2 xor Bin);
     end FullSubtractor;
 
-    function BorrowOut(A, B, Bin : std_logic) return std_logic is
+    function BorrowOut(input1, input2, Bin : std_logic) return std_logic is
     begin
-        return ((not A and B) or ((not A) and Bin) or (Bin and B));
+        return ((not input1 and input2) or ((not input1) and Bin) or (Bin and input2));
     end BorrowOut;
 
     signal Temp_Borrow : std_logic;
