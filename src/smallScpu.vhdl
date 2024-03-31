@@ -168,12 +168,12 @@ architecture Behavioral of DIG_Add is
   signal Carry : std_logic;
   signal temp  : std_logic_vector(Bits downto 0);
 begin
-  process (A, B, Cin)
+  process (a, b, c_i)
   begin
-    Carry <= Cin;
-    for i in 0 to N - 1 loop
-      s(i) <= FullAdder(A(i), B(i), Carry);
-      Carry <= CarryOut(A(i), B(i), Carry);
+    Carry <= c_i;
+    for i in 0 to Bits - 1 loop
+      s(i) <= FullAdder(a(i), b(i), Carry);
+      Carry <= CarryOut(a(i), b(i), Carry);
     end loop;
     c_o <= Carry;
   end process;
@@ -906,12 +906,29 @@ entity DIG_Sub is
 end entity;
 
 architecture Behavioral of DIG_Sub is
-  signal temp : std_logic_vector(Bits downto 0);
-begin
-  temp <= ('0' & a) - b - c_i;
+  function FullSubtractor(A, B, Bin : std_logic) return std_logic is
+    begin
+        return (A xor B xor Bin);
+    end FullSubtractor;
 
-  s   <= temp((Bits - 1) downto 0);
-  c_o <= temp(Bits);
+    function BorrowOut(A, B, Bin : std_logic) return std_logic is
+    begin
+        return ((not A and B) or ((not A) and Bin) or (Bin and B));
+    end BorrowOut;
+
+    signal Temp_Borrow : std_logic;
+begin
+  process (a, b, c_i)
+  begin
+    Temp_Borrow <= c_i;
+    for i in 0 to Bits - 1 loop
+      s(i) <= FullSubtractor(a(i), b(i), Temp_Borrow);
+      Temp_Borrow <= BorrowOut(a(i), b(i), Temp_Borrow);
+    end loop;
+    
+    c_o <= Temp_Borrow;
+  end process;
+  
 end architecture;
 
 library ieee;
