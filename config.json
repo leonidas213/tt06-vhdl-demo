@@ -1,5 +1,5 @@
 {
-  "DESIGN_NAME": "main",
+  "DESIGN_NAME": "tt_um_main",
   "VHDL_FILES": ["dir::src/smallScpu.vhdl"],
 
   "FP_SIZING": "absolute",

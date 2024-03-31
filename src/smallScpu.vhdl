@@ -1132,7 +1132,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
 
-entity main is
+entity tt_um_main is
   port (
     clk: in std_logic;
     ui_in: in std_logic_vector(7 downto 0);
@@ -1142,9 +1142,9 @@ entity main is
     uo_out: out std_logic_vector(7 downto 0);
     uio_out: out std_logic_vector(7 downto 0);
     uio_oe: out std_logic_vector(7 downto 0));
-end main;
+end tt_um_main;
 
-architecture Behavioral of main is
+architecture Behavioral of tt_um_main is
   signal muxA: std_logic;
   signal s0: std_logic_vector(15 downto 0);
   signal s1: std_logic_vector(15 downto 0);
