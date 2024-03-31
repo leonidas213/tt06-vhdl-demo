@@ -151,7 +151,7 @@ end Behavioral;
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 --USE ieee.std_logic_unsigned.all;
-
+use IEEE.numeric_std.all;
 entity DIG_Add is
   generic ( Bits: integer ); 
   port (
@@ -165,7 +165,7 @@ end DIG_Add;
 architecture Behavioral of DIG_Add is
    signal temp : std_logic_vector(Bits downto 0);
 begin
-   temp <= ('0' & a) + b + c_i;
+   temp <= std_logic_vector(unsigned(('0' & a)) +unsigned( b) + unsigned(c_i));
 
    s    <= temp((Bits-1) downto 0);
    c_o  <= temp(Bits);
@@ -911,7 +911,7 @@ end Behavioral;
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 --USE ieee.std_logic_unsigned.all;
-
+use IEEE.numeric_std.all;
 entity DIG_Sub is
   generic ( Bits: integer ); 
   port (
@@ -925,7 +925,7 @@ end DIG_Sub;
 architecture Behavioral of DIG_Sub is
    signal temp : std_logic_vector(Bits downto 0);
 begin
-   temp <= ('0' & a) - b - c_i;
+   temp <= std_logic_vector(unsigned('0' & a) - unsigned(b) - unsigned(c_i));
 
    s    <= temp((Bits-1) downto 0);
    c_o  <= temp(Bits);
