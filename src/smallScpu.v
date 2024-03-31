@@ -988,7 +988,7 @@ module DIG_JK_FF
 endmodule
 
 
-module smallScpu (
+module tt_um_smallScpu (
   input clk,
   input [7:0] ui_in,
   input rst_n,
