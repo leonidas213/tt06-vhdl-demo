@@ -3,8 +3,8 @@
   "VHDL_FILES": ["dir::src/smallScpu.vhdl"],
 
   "FP_SIZING": "absolute",
-  "DIE_AREA": [0, 0, 497.72, 225.76],
-  "FP_DEF_TEMPLATE": "dir::def/tt_block_3x2_pg.def",
+  "DIE_AREA": [0, 0, 1348.72, 225.76],
+  "FP_DEF_TEMPLATE": "dir::def/tt_block_8x2_pg.def",
   
   "FP_IO_HLENGTH": 2,
   "FP_IO_VLENGTH": 2,
