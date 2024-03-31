@@ -150,7 +150,7 @@ end Behavioral;
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
-USE ieee.std_logic_unsigned.all;
+--USE ieee.std_logic_unsigned.all;
 
 entity DIG_Add is
   generic ( Bits: integer ); 
@@ -910,7 +910,7 @@ end Behavioral;
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
-USE ieee.std_logic_unsigned.all;
+--USE ieee.std_logic_unsigned.all;
 
 entity DIG_Sub is
   generic ( Bits: integer ); 
