@@ -933,6 +933,7 @@ end architecture;
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 
+use ieee.numeric_std.all;
 entity COMP_GATE_UNSIGNED is
   generic ( Bits : integer );
   port (
