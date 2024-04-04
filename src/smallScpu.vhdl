@@ -183,6 +183,8 @@ end architecture;
 library ieee;
   use ieee.std_logic_1164.all;
 
+  use IEEE.NUMERIC_STD.all;
+
 entity COMP_GATE_UNSIGNED is
   generic (Bits : integer);
   port (
@@ -197,7 +199,7 @@ architecture Behavioral of COMP_GATE_UNSIGNED is
 begin
   process (a, b)
   begin
-    if (unsigned(a) >unsigned( b)) then
+    if (unsigned(a) > unsigned(b)) then
       le <= '0';
       eq <= '0';
       gr <= '1';
@@ -907,16 +909,16 @@ end entity;
 
 architecture Behavioral of DIG_Sub is
   function FullSubtractor(input1, input2, Bin : std_logic) return std_logic is
-    begin
-        return (input1 xor input2 xor Bin);
-    end FullSubtractor;
+  begin
+    return (input1 xor input2 xor Bin);
+  end function;
 
-    function BorrowOut(input1, input2, Bin : std_logic) return std_logic is
-    begin
-        return ((not input1 and input2) or ((not input1) and Bin) or (Bin and input2));
-    end BorrowOut;
+  function BorrowOut(input1, input2, Bin : std_logic) return std_logic is
+  begin
+    return ((not input1 and input2) or ((not input1) and Bin) or (Bin and input2));
+  end function;
 
-    signal Temp_Borrow : std_logic;
+  signal Temp_Borrow : std_logic;
 begin
   process (a, b, c_i)
   begin
@@ -925,10 +927,10 @@ begin
       s(i) <= FullSubtractor(a(i), b(i), Temp_Borrow);
       Temp_Borrow <= BorrowOut(a(i), b(i), Temp_Borrow);
     end loop;
-    
+
     c_o <= Temp_Borrow;
   end process;
-  
+
 end architecture;
 
 library ieee;
