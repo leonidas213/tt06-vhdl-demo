@@ -133,7 +133,7 @@ begin
   begin
     if sel = '0' then
       D <= (others => 'Z');
-    elsif A > "00010110" then
+    elsif unsigned(A) > "00010110" then
       D <= (others => '0');
     else
       D <= my_rom(to_integer(unsigned(A)));
@@ -197,11 +197,11 @@ architecture Behavioral of COMP_GATE_UNSIGNED is
 begin
   process (a, b)
   begin
-    if (a > b) then
+    if (unsigned(a) >unsigned( b)) then
       le <= '0';
       eq <= '0';
       gr <= '1';
-    elsif (a < b) then
+    elsif (unsigned(a) < unsigned(b)) then
       le <= '1';
       eq <= '0';
       gr <= '0';
