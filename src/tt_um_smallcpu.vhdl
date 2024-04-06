@@ -835,30 +835,6 @@ end Behavioral;
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
-USE ieee.std_logic_unsigned.all;
-
-entity DIG_Add is
-  generic ( Bits: integer ); 
-  port (
-    s: out std_logic_vector((Bits-1) downto 0);
-    c_o: out std_logic;
-    a: in std_logic_vector((Bits-1) downto 0);
-    b: in std_logic_vector((Bits-1) downto 0);
-    c_i: in std_logic );
-end DIG_Add;
-
-architecture Behavioral of DIG_Add is
-   signal temp : std_logic_vector(Bits downto 0);
-begin
-   temp <= ('0' & a) + b + c_i;
-
-   s    <= temp((Bits-1) downto 0);
-   c_o  <= temp(Bits);
-end Behavioral;
-
-
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
 
 entity COMP_GATE_UNSIGNED is
   generic ( Bits : integer );
@@ -1056,10 +1032,10 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 entity DIG_Add is
   port (
-    s   : out std_logic_vector((8 - 1) downto 0);
+    s   : out std_logic_vector((16 - 1) downto 0);
     c_o : out std_logic;
-    a   : in  std_logic_vector((8 - 1) downto 0);
-    b   : in  std_logic_vector((8 - 1) downto 0);
+    a   : in  std_logic_vector((16 - 1) downto 0);
+    b   : in  std_logic_vector((16 - 1) downto 0);
     c_i : in  std_logic);
 end entity;
 architecture Behavioral of DIG_Add is
@@ -1072,12 +1048,12 @@ architecture Behavioral of DIG_Add is
     return ((input1 and input2) or (Cin and (input1 xor input2)));
   end function;
   signal Carry : std_logic;
-  signal temp  : std_logic_vector(8 downto 0);
+  signal temp  : std_logic_vector(16 downto 0);
 begin
   process (a, b, c_i)
   begin
     Carry <= c_i;
-    for i in 0 to 8 - 1 loop
+    for i in 0 to 16- 1 loop
       s(i) <= FullAdder(a(i), b(i), Carry);
       Carry <= CarryOut(a(i), b(i), Carry);
     end loop;
@@ -1091,10 +1067,10 @@ USE ieee.std_logic_1164.all;
 --USE ieee.std_logic_unsigned.all;
 entity DIG_Sub is
   port (
-    s   : out std_logic_vector((8 - 1) downto 0);
+    s   : out std_logic_vector((16 - 1) downto 0);
     c_o : out std_logic;
-    a   : in  std_logic_vector((8 - 1) downto 0);
-    b   : in  std_logic_vector((8 - 1) downto 0);
+    a   : in  std_logic_vector((16 - 1) downto 0);
+    b   : in  std_logic_vector((16 - 1) downto 0);
     c_i : in  std_logic);
 end entity;
 architecture Behavioral of DIG_Sub is
@@ -1111,7 +1087,7 @@ begin
   process (a, b, c_i)
   begin
     Temp_Borrow <= c_i;
-    for i in 0 to 8 - 1 loop
+    for i in 0 to 16 - 1 loop
       s(i) <= FullSubtractor(a(i), b(i), Temp_Borrow);
       Temp_Borrow <= BorrowOut(a(i), b(i), Temp_Borrow);
     end loop;
@@ -1119,6 +1095,39 @@ begin
   end process;
 end architecture;
 
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+entity DIG_Add_12 is
+  port (
+    s   : out std_logic_vector((12 - 1) downto 0);
+    c_o : out std_logic;
+    a   : in  std_logic_vector((12 - 1) downto 0);
+    b   : in  std_logic_vector((12 - 1) downto 0);
+    c_i : in  std_logic);
+end entity;
+architecture Behavioral of DIG_Add_12 is
+  function FullAdder(input1, input2, Cin : std_logic) return std_logic is
+  begin
+    return (input1 xor input2 xor Cin);
+  end function;
+  function CarryOut(input1, input2, Cin : std_logic) return std_logic is
+  begin
+    return ((input1 and input2) or (Cin and (input1 xor input2)));
+  end function;
+  signal Carry : std_logic;
+  signal temp  : std_logic_vector(8 downto 0);
+begin
+  process (a, b, c_i)
+  begin
+    Carry <= c_i;
+    for i in 0 to 12 - 1 loop
+      s(i) <= FullAdder(a(i), b(i), Carry);
+      Carry <= CarryOut(a(i), b(i), Carry);
+    end loop;
+    c_o <= Carry;
+  end process;
+end architecture;
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
@@ -1183,8 +1192,8 @@ architecture Behavioral of tt_um_smallcpu is
   signal s28: std_logic_vector(11 downto 0);
   signal s29: std_logic_vector(11 downto 0);
   signal s30: std_logic_vector(11 downto 0);
-  signal s31: std_logic_vector(11 downto 0);
   signal p_abs: std_logic;
+  signal s31: std_logic_vector(11 downto 0);
   signal s32: std_logic;
   signal ioW: std_logic;
   signal s33: std_logic;
@@ -1525,8 +1534,8 @@ begin
       Bits => 12)
     port map (
       sel => p_abs,
-      in_0 => s31,
-      in_1 => s29,
+      in_0 => s30,
+      in_1 => s31,
       p_out => s26);
   s33 <= (s32 AND ioW);
   gate18: entity work.DIG_Register_BUS
@@ -1723,15 +1732,7 @@ begin
   FlagOut(1) <= s19;
   FlagOut(2) <= s20;
   FlagOut(15 downto 3) <= "0000000000000";
-  gate40: entity work.DIG_Add -- Add One
-    generic map (
-      Bits => 12)
-    port map (
-      a => pcOut,
-      b => "000000000001",
-      c_i => '0',
-      s => s28);
-  gate41: entity work.COMP_GATE_UNSIGNED
+  gate40: entity work.COMP_GATE_UNSIGNED
     generic map (
       Bits => 16)
     port map (
@@ -1741,46 +1742,46 @@ begin
   s37 <= (s2 AND s7);
   s38 <= (s2 OR s7);
   s39 <= (s2 XOR s7);
-  gate42: entity work.COMP_GATE_SIGNED
+  gate41: entity work.COMP_GATE_SIGNED
     generic map (
       Bits => 16)
     port map (
       a => s14,
       b => "0000000000000000",
       eq => s24);
-  gate43: entity work.LSL
+  gate42: entity work.LSL
     port map (
       Di => s2,
       Ci => s52,
       Do => s42,
       Co => s49);
-  gate44: entity work.LSR
+  gate43: entity work.LSR
     port map (
       Di => s2,
       Ci => s52,
       Do => s43,
       Co => s50);
-  gate45: entity work.ASR
+  gate44: entity work.ASR
     port map (
       Di => s2,
       C => s51,
       Do => s44);
-  gate46: entity work.SWAP
+  gate45: entity work.SWAP
     port map (
       Di => s2,
       Do => s45);
-  gate47: entity work.SWAPN
+  gate46: entity work.SWAPN
     port map (
       Di => s2,
       Do => s46);
   s40 <= NOT s2;
-  gate48: entity work.DIG_Neg
+  gate47: entity work.DIG_Neg
     generic map (
       Bits => 16)
     port map (
       p_in => s2,
       p_out => s41);
-  gate49: entity work.MUX_GATE_BUS_1
+  gate48: entity work.MUX_GATE_BUS_1
     generic map (
       Bits => 16)
     port map (
@@ -1788,7 +1789,7 @@ begin
       in_0 => "0000000000000000",
       in_1 => s58,
       p_out => s59);
-  gate50: entity work.COMP_GATE_UNSIGNED
+  gate49: entity work.COMP_GATE_UNSIGNED
     generic map (
       Bits => 16)
     port map (
@@ -1812,7 +1813,7 @@ begin
   RandomNUM(13) <= s91;
   RandomNUM(14) <= s93;
   RandomNUM(15) <= s95;
-  gate51: entity work.COMP_GATE_UNSIGNED
+  gate50: entity work.COMP_GATE_UNSIGNED
     generic map (
       Bits => 16)
     port map (
@@ -1823,36 +1824,40 @@ begin
   uio_out(7 downto 4) <= outputToOutside;
   uio_oe(3 downto 0) <= "0000";
   uio_oe(7 downto 4) <= outputToOutsideEnable;
-  gate52: entity work.DIG_Add -- DIG_Add
+  gate51: entity work.DIG_Add -- DIG_Add
     port map (
       a => s2,
       b => s7,
       c_i => s52,
       s => s35,
       c_o => s47);
-  gate53: entity work.DIG_Sub -- DIG_Sub
+  gate52: entity work.DIG_Sub -- DIG_Sub
     port map (
       a => s2,
       b => s7,
       c_i => s52,
       s => s36,
       c_o => s48);
+  gate53: entity work.add_one -- add_one
+    port map (
+      a => pcOut,
+      b => "000000000001",
+      c_i => '0',
+      s => s28);
   s11 <= s14(4 downto 0);
   s34 <= s1(3 downto 0);
   s25 <= s14(15);
-  s29 <= s14(11 downto 0);
+  s31 <= s14(11 downto 0);
   s120 <= s1(3 downto 0);
   uo_out <= pcOut(7 downto 0);
-  gate54: entity work.DIG_Add -- Add ALU
-    generic map (
-      Bits => 12)
-    port map (
-      a => s28,
-      b => s29,
-      c_i => '0',
-      s => s30);
   s15(11 downto 0) <= s28;
   s15(15 downto 12) <= "0000";
+  gate54: entity work.add_alu -- add_alu
+    port map (
+      a => s28,
+      b => s31,
+      c_i => '0',
+      s => s29);
   s63 <= s59(0);
   s66 <= s59(1);
   s68 <= s59(2);
@@ -1875,8 +1880,8 @@ begin
     port map (
       sel => s22,
       in_0 => s28,
-      in_1 => s30,
-      p_out => s31);
+      in_1 => s29,
+      p_out => s30);
   gate56: entity work.DIG_D_FF_AS
     port map (
       Set => '0',
