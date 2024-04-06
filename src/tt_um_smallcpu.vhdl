@@ -1831,14 +1831,14 @@ begin
       c_i => s52,
       s => s35,
       c_o => s47);
-  gate52: entity work.DIG_Sub -- DIG_Sub
+  gate52: entity work.DIG_Add_12 -- DIG_Sub
     port map (
       a => s2,
       b => s7,
       c_i => s52,
       s => s36,
       c_o => s48);
-  gate53: entity work.add_one -- add_one
+  gate53: entity work.DIG_Add_12 -- add_one
     port map (
       a => pcOut,
       b => "000000000001",
