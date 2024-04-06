@@ -1,6 +1,6 @@
 {
   "DESIGN_NAME": "tt_um_smallScpu",
-  "VHDL_FILES": ["dir::src/top.vhdl", "dir::src/decoder.vhdl"],
+  "VHDL_FILES": ["dir::src/top.vhdl"],
 
   "FP_SIZING": "absolute",
   "DIE_AREA": [0, 0, 327.52, 225.76],
