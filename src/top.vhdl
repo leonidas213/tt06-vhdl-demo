@@ -118,7 +118,7 @@ library ieee;
   use ieee.std_logic_1164.all;
 
 entity DIG_JK_FF is
-  generic (tempval std_logic);
+  generic (twmpvalt: std_logic);
   port (
     Q    : out std_logic;
     notQ : out std_logic;
@@ -128,7 +128,7 @@ entity DIG_JK_FF is
 end entity;
 
 architecture Behavioral of DIG_JK_FF is
-  signal temp : std_logic := default;
+  signal temp : std_logic := twmpvalt;
 begin
   process (C)
   begin
@@ -150,7 +150,7 @@ library ieee;
   use ieee.std_logic_1164.all;
   use ieee.numeric_std.all;
 
-entity tt_um_smallcpu is
+entity main is
   port (
     clk     : in  std_logic;
     rst_n   : in  std_logic;
@@ -162,7 +162,7 @@ entity tt_um_smallcpu is
     uio_oe  : out std_logic_vector(7 downto 0));
 end entity;
 
-architecture Behavioral of tt_um_smallcpu is
+architecture Behavioral of main is
   signal s0                    : std_logic_vector(15 downto 0);
   signal s1                    : std_logic;
   signal ioW                   : std_logic;
