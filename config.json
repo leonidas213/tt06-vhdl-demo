@@ -1,5 +1,5 @@
 {
-  "DESIGN_NAME": "tt_um_vhdl_seven_segment_seconds",
+  "DESIGN_NAME": "smallScpu",
   "VHDL_FILES": ["dir::src/top.vhdl", "dir::src/decoder.vhdl"],
 
   "FP_SIZING": "absolute",
@@ -19,7 +19,7 @@
   ],
 
   "//": "period is in ns, so 20ns == 50mHz",
-  "CLOCK_PERIOD": 20,
+  "CLOCK_PERIOD": 2000,
   "CLOCK_PORT": "clk",
 
   "//": "don't use power rings or met5",
