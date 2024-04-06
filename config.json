@@ -1,6 +1,44 @@
 {
   "DESIGN_NAME": "tt_um_smallScpu",
-  "VHDL_FILES": ["dir::src/cputesty/*"],
+ "VHDL_FILES": ["dir::src/cputesty/DIG_JK_FF_AS.vhdl",
+   "dir::src/cputesty/DEMUX_GATE_BUS_1.vhdl", 
+   "dir::src/cputesty/DIG_Register_BUS.vhdl", 
+   "dir::src/cputesty/singExtend.vhdl", 
+   "dir::src/cputesty/MUX_GATE_BUS_1.vhdl", 
+   "dir::src/cputesty/controllogic.vhdl", 
+   "dir::src/cputesty/MUX_GATE_2.vhdl", 
+   "dir::src/cputesty/ImReg.vhdl", 
+   "dir::src/cputesty/MUX_GATE_BUS_3.vhdl", 
+   "dir::src/cputesty/DIG_RAMDualPort.vhdl", 
+   "dir::src/cputesty/DIG_Register.vhdl", 
+   "dir::src/cputesty/DIG_D_FF.vhdl", 
+   "dir::src/cputesty/DEMUX_GATE_4.vhdl", 
+   "dir::src/cputesty/MUX_GATE_BUS_4.vhdl", 
+   "dir::src/cputesty/RegisterBlock.vhdl", 
+   "dir::src/cputesty/MUX_GATE_4.vhdl",
+   "dir::src/cputesty/DIG_JK_FF.vhdl", 
+   "dir::src/cputesty/DIG_D_FF_AS.vhdl", 
+   "dir::src/cputesty/DIG_Add.vhdl", 
+   "dir::src/cputesty/COMP_GATE_UNSIGNED.vhdl", 
+   "dir::src/cputesty/DIG_Sub.vhdl", 
+   "dir::src/cputesty/COMP_GATE_SIGNED.vhdl", 
+   "dir::src/cputesty/LSL.vhdl", 
+   "dir::src/cputesty/LSR.vhdl", 
+   "dir::src/cputesty/ASR.vhdl", 
+   "dir::src/cputesty/SWAP.vhdl", 
+   "dir::src/cputesty/SWAPN.vhdl",
+   "dir::src/cputesty/DIG_Mul_unsigned.vhdl",
+   "dir::src/cputesty/DIG_Neg.vhdl", 
+   "dir::src/cputesty/tt_um_smallScpu.vhdl"],
+
+
+
+
+
+
+
+
+
 
   "FP_SIZING": "absolute",
   "DIE_AREA": [0, 0, 1348.72, 225.76],
