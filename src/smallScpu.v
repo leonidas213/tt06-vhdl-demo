@@ -1017,7 +1017,7 @@ module CompSigned #(
 endmodule
 
 
-module smallScpu (
+module tt_um_smallScpu (
   input clk,
   input rst_n,
   input ena,
