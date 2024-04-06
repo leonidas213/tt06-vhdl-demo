@@ -1,0 +1,85 @@
+LIBRARY IEEE;
+  use ieee.std_logic_1164.all;
+  use ieee.numeric_std.all;
+
+entity controllogic is
+  port (
+    A      : in  std_logic;
+    B      : in  std_logic;
+    C      : in  std_logic;
+    D      : in  std_logic;
+    E      : in  std_logic;
+    F      : in  std_logic;
+    G      : in  std_logic;
+    muxb0  : out std_logic;
+    muxb1  : out std_logic;
+    muxb2  : out std_logic;
+    src2D  : out std_logic;
+    aluop0 : out std_logic;
+    aluop1 : out std_logic;
+    aluop2 : out std_logic;
+    aluop3 : out std_logic;
+    aluop4 : out std_logic;
+    WE     : out std_logic;
+    sf     : out std_logic;
+    alu2D  : out std_logic;
+    iem0   : out std_logic;
+    iem1   : out std_logic;
+    br0    : out std_logic;
+    br1    : out std_logic;
+    br2    : out std_logic;
+    muxA   : out std_logic;
+    ld     : out std_logic;
+    st     : out std_logic;
+    p_abs  : out std_logic;
+    ioW    : out std_logic;
+    ioR    : out std_logic;
+    stPC   : out std_logic;
+    Reti   : out std_logic;
+    rand   : out std_logic);
+end entity;
+
+architecture Behavioral of controllogic is
+  signal s0 : std_logic;
+  signal s1 : std_logic;
+  signal s2 : std_logic;
+  signal s3 : std_logic;
+  signal s4 : std_logic;
+  signal s5 : std_logic;
+  signal s6 : std_logic;
+begin
+  s5     <= not A;
+  s0     <= not B;
+  s1     <= not C;
+  s2     <= not D;
+  s3     <= not E;
+  s6     <= not F;
+  s4     <= not G;
+  muxb0  <= ((A and s0 and s1 and s2 and s3 and F and s4) or (A and s0 and s1 and s2 and E and F and G) or (s5 and s1 and D and E and F and s4) or (s5 and B and C and s3 and s6 and s4) or (s5 and s0 and s1 and D and F and s4) or (s5 and s0 and s1 and D and E and s4) or (s5 and s0 and C and s2 and s3 and s4) or (s5 and B and s1 and s2 and s3 and G) or (s5 and C and D and s6 and G) or (s5 and C and s2 and E and G) or (s5 and B and C and E and G) or (s5 and B and C and s2 and E));
+  muxb1  <= ((A and s0 and s1 and s2 and E and F and s4) or (s5 and C and s2 and s3 and s6 and G) or (s5 and B and s1 and s2 and s3 and s4) or (A and s0 and s1 and s2 and s3 and G) or (A and s0 and s1 and s2 and s3 and s6) or (s5 and s1 and D and F and G) or (s5 and C and D and s6 and s4) or (s5 and B and C and s6 and G) or (s5 and B and C and F and s4) or (s5 and C and s2 and E and s4) or (s5 and s0 and s1 and D and G) or (s5 and B and D and E) or (s5 and B and C and E));
+  muxb2  <= ((s5 and B and C and D and E and F and G) or (s5 and C and s2 and s3 and s6 and s4) or (s5 and B and s2 and s3 and F and G) or (s5 and B and s1 and s3 and F and G) or (s5 and s0 and s1 and D and F and s4) or (s5 and s0 and C and D and s6 and G) or (A and s0 and s1 and s2 and F and G) or (s5 and s0 and C and s2 and s3 and s4) or (s5 and s0 and C and s2 and E and G) or (s5 and B and s1 and s2 and s3 and G) or (A and s0 and s1 and s2 and s3 and s4) or (s5 and s1 and D and E and s4));
+  src2D  <= ((s5 and s0 and s1 and s2 and s3 and s6 and G) or (s5 and B and s1 and D and s3 and F and G) or (s5 and B and s1 and D and E and s6 and G) or (s5 and B and C and s2 and s3 and s6 and G) or (A and s0 and s1 and s2 and s3 and s6 and s4) or (s5 and B and D and E and F and s4) or (s5 and B and C and D and E and F));
+  aluop0 <= ((s5 and s0 and s1 and D and E and F and s4) or (s5 and s0 and C and s2 and s3 and s6 and G) or (s5 and s0 and C and s2 and s3 and F and s4) or (s5 and s0 and C and D and E and F and G) or (s5 and s1 and s2 and s3 and F and G) or (s5 and s0 and s1 and E and s6 and G) or (s5 and B and s1 and s2 and F));
+  aluop1 <= ((s5 and s0 and C and D and s3 and F and G) or (A and s0 and s1 and s2 and E and s6 and G) or (A and s0 and s1 and s2 and E and F and s4) or (s5 and B and s1 and D and s3 and s4) or (s5 and s0 and C and D and E and s6) or (s5 and B and s1 and D and s3 and s6) or (s5 and B and s1 and s2 and E));
+  aluop2 <= ((s5 and B and s1 and D and s3 and F and s4) or (A and s0 and s1 and s2 and E and s6 and G) or (A and s0 and s1 and s2 and E and F and s4) or (s5 and s0 and s2 and E and F and G) or (s5 and s0 and D and s3 and s6 and s4) or (s5 and s0 and C and s3 and F and G) or (s5 and s0 and C and s2 and E and F) or (s5 and s0 and C and D and s6) or (s5 and s0 and C and D and s3));
+  aluop3 <= ((s5 and s0 and D and E and F and G) or (s5 and s0 and C and D and F and s4) or (s5 and s0 and s2 and E and s6) or (s5 and B and s1 and s3 and s6) or (s5 and s0 and C and s2 and s3) or (s5 and B and s1 and s2 and s3) or (s0 and s1 and s2 and E and s6 and G) or (s0 and s1 and s2 and E and F and s4));
+  aluop4 <= ((s5 and B and C and s2 and s3 and s6 and G) or (s5 and B and C and s2 and s3 and F and s4) or (A and s0 and s1 and s2 and s3 and s6 and s4) or (s5 and s1 and D and E and s6 and s4) or (s5 and s0 and s1 and E and F and s4) or (s5 and s0 and s1 and s2 and F and s4) or (s5 and s0 and C and D and s3 and G) or (s5 and B and s1 and s2 and E and G) or (s5 and B and s1 and D and s3 and G) or (s5 and s0 and s3 and F and G) or (s5 and s0 and D and s6 and s4) or (s5 and s0 and D and E and s6) or (s5 and s0 and C and E and s6) or (s0 and s1 and s2 and s3 and F and G));
+  WE     <= ((s5 and D and s3 and F and s4) or (s5 and s1 and E and s6 and s4) or (s5 and s1 and E and F and G) or (s5 and C and s2 and s3 and s4) or (s5 and s1 and D and s3 and s6) or (s5 and C and s2 and s3 and F) or (s5 and s0 and D and s6) or (s5 and s1 and s2 and E) or (s5 and s0 and D and s3) or (s5 and s0 and s1 and D) or (s5 and s0 and C and s2) or (s0 and s1 and s2 and G) or (s0 and s1 and s2 and F));
+  sf     <= ((s5 and s1 and D and s3 and s6 and s4) or (s5 and s0 and s2 and F and s4) or (s5 and s0 and D and F and G) or (s5 and s0 and s1 and F and G) or (s5 and s0 and C and s6) or (s5 and B and s1 and s2) or (s5 and s0 and E) or (s0 and s1 and s2 and E and s6 and G) or (s0 and s1 and s2 and E and F and s4));
+  alu2D  <= ((s5 and C and s2 and s3 and F and G) or (s5 and s1 and D and s3 and s4) or (s5 and s1 and D and s3 and s6) or (s5 and s0 and E and s6) or (s5 and s0 and s2 and F) or (s5 and s0 and s1 and F) or (s5 and s1 and s2 and E) or (s5 and s0 and C and s3) or (s0 and s1 and s2 and E and s6 and G) or (s0 and s1 and s2 and E and F and s4));
+  iem0   <= ((s5 and s0 and C and s2 and s3 and s6 and G) or (A and s0 and s1 and s2 and s3 and s6 and G) or (A and s0 and s1 and s2 and E and F and s4) or (s5 and C and D and E and s6 and s4) or (s5 and s0 and C and D and s6 and s4) or (s5 and B and C and D and F and s4) or (s5 and s0 and C and s2 and E and s4) or (s5 and B and s1 and s2 and s3 and s4) or (s5 and s1 and D and E and G) or (s5 and s0 and s1 and D and G));
+  iem1   <= ((s5 and B and s1 and D and E and s6 and G) or (s5 and B and C and D and E and F and s4));
+  br0    <= ((s5 and B and C and s2 and E and F and G) or (s5 and B and C and D and s6 and G) or (s5 and B and C and D and s3 and s6));
+  br1    <= ((s5 and B and C and s2 and E and s6 and G) or (s5 and B and C and s2 and E and F and s4) or (s5 and B and C and D and s3 and s6));
+  br2    <= ((s5 and B and C and D and s3 and s6 and G) or (s5 and B and C and s2 and E and s4) or (s5 and B and C and s2 and E and F));
+  muxA   <= ((s5 and B and s1 and D and E and s6 and s4) or (s5 and B and C and s2 and s3 and F and s4) or (A and s0 and s1 and s2 and s3 and G) or (A and s0 and s1 and s2 and s3 and F));
+  ld     <= ((s5 and B and s1 and D and E and s6 and s4) or (s5 and B and s1 and D and E and F and G) or (s5 and B and C and s2 and s3 and s4));
+  st     <= ((s5 and B and s1 and D and s3 and F and G) or (s5 and B and s1 and D and E and s6 and G) or (s5 and B and s1 and D and E and F and s4) or (s5 and B and C and s2 and s3 and s6 and G));
+  p_abs  <= ((s5 and B and C and D and E and s6 and s4) or (A and s0 and s1 and s2 and E and s6 and s4) or (s5 and B and C and D and s3 and F));
+  ioW    <= ((A and s0 and s1 and s2 and s3 and s6 and s4) or (s5 and B and C and D and E and F));
+  ioR    <= ((A and s0 and s1 and s2 and s3 and G) or (A and s0 and s1 and s2 and s3 and F));
+  stPC   <= (s5 and B and C and D and s3 and F and s4);
+  Reti   <= (A and s0 and s1 and s2 and E and s6 and s4);
+  rand   <= (A and s0 and s1 and s2 and E and F and G);
+end architecture;
+
