@@ -1831,7 +1831,7 @@ begin
       c_i => s52,
       s => s35,
       c_o => s47);
-  gate52: entity work.DIG_Add_12 -- DIG_Sub
+  gate52: entity work.DIG_Sub -- DIG_Sub
     port map (
       a => s2,
       b => s7,
@@ -1852,7 +1852,7 @@ begin
   uo_out <= pcOut(7 downto 0);
   s15(11 downto 0) <= s28;
   s15(15 downto 12) <= "0000";
-  gate54: entity work.add_alu -- add_alu
+  gate54: entity work.DIG_Add_12 -- add_alu
     port map (
       a => s28,
       b => s31,
