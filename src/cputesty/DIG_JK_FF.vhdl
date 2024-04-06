@@ -1,32 +1,32 @@
 LIBRARY IEEE;
   use ieee.std_logic_1164.all;
 
-entity DIG_JK_FF is
+entity dig_jk_ff is
   generic (tempval : std_logic);
   port (
-    Q    : out std_logic;
-    notQ : out std_logic;
-    J    : in  std_logic;
-    C    : in  std_logic;
-    K    : in  std_logic);
+    q    : out std_logic;
+    notq : out std_logic;
+    j    : in  std_logic;
+    c    : in  std_logic;
+    k    : in  std_logic);
 end entity;
 
-architecture Behavioral of DIG_JK_FF is
+architecture behavioral of dig_jk_ff is
   signal temp : std_logic := tempval;
 begin
-  process (C)
+  process (c)
   begin
-    if rising_edge(C) then
-      if (J = '0' and K = '1') then
+    if rising_edge(c) then
+      if (j = '0' and k = '1') then
         temp <= '0';
-      elsif (J = '1' and K = '0') then
+      elsif (j = '1' and k = '0') then
         temp <= '1';
-      elsif (J = '1' and K = '1') then
+      elsif (j = '1' and k = '1') then
         temp <= not (temp);
       end if;
     end if;
   end process;
-  Q    <= temp;
-  notQ <= not (temp);
+  q    <= temp;
+  notq <= not (temp);
 end architecture;
 

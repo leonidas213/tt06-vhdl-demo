@@ -2,7 +2,7 @@ LIBRARY IEEE;
   use ieee.std_logic_1164.all;
   use ieee.numeric_std.all;
 
-entity DEMUX_GATE_4 is
+entity demux_gate_4 is
   generic (
     tempval : integer);
   port (
@@ -26,7 +26,7 @@ entity DEMUX_GATE_4 is
     p_in   : in  std_logic);
 end entity;
 
-architecture Behavioral of DEMUX_GATE_4 is
+architecture behavioral of demux_gate_4 is
 begin
   out_0  <= p_in when sel = "0000" else std_logic(to_unsigned(tempval, 1)(0));
   out_1  <= p_in when sel = "0001" else std_logic(to_unsigned(tempval, 1)(0));

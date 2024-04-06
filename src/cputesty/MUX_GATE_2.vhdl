@@ -1,7 +1,7 @@
 LIBRARY IEEE;
   use ieee.std_logic_1164.all;
 
-entity MUX_GATE_2 is
+entity mux_gate_2 is
   port (
     p_out : out std_logic;
     sel   : in  std_logic_vector(1 downto 0);
@@ -12,7 +12,7 @@ entity MUX_GATE_2 is
     in_3  : in  std_logic);
 end entity;
 
-architecture Behavioral of MUX_GATE_2 is
+architecture behavioral of mux_gate_2 is
 begin
   with sel select
     p_out <= in_0 when "00",

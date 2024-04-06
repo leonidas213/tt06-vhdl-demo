@@ -1,25 +1,25 @@
 LIBRARY IEEE;
   use ieee.std_logic_1164.all;
 
-entity DIG_D_FF is
+entity dig_d_ff is
   generic (
     tempval : std_logic);
-  port (D    : in  std_logic;
-        C    : in  std_logic;
-        Q    : out std_logic;
-        notQ : out std_logic);
+  port (d    : in  std_logic;
+        c    : in  std_logic;
+        q    : out std_logic;
+        notq : out std_logic);
 end entity;
 
-architecture Behavioral of DIG_D_FF is
+architecture behavioral of dig_d_ff is
   signal state : std_logic := tempval;
 begin
-  Q    <= state;
-  notQ <= not (state);
+  q    <= state;
+  notq <= not (state);
 
-  process (C)
+  process (c)
   begin
-    if rising_edge(C) then
-      state <= D;
+    if rising_edge(c) then
+      state <= d;
     end if;
   end process;
 end architecture;

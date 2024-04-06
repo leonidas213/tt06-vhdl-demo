@@ -1,38 +1,38 @@
 LIBRARY IEEE;
   use ieee.std_logic_1164.all;
-  --USE ieee.std_logic_unsigned.all;
+  --use ieee.std_logic_unsigned.all;
 
-entity DIG_Add is
-  generic (Bits : integer);
+entity dig_add is
+  generic (bits : integer);
   port (
-    s   : out std_logic_vector((Bits - 1) downto 0);
+    s   : out std_logic_vector((bits - 1) downto 0);
     c_o : out std_logic;
-    a   : in  std_logic_vector((Bits - 1) downto 0);
-    b   : in  std_logic_vector((Bits - 1) downto 0);
+    a   : in  std_logic_vector((bits - 1) downto 0);
+    b   : in  std_logic_vector((bits - 1) downto 0);
     c_i : in  std_logic);
 end entity;
 
-architecture Behavioral of DIG_Add is
-  function FullAdder(input1, input2, Cin : std_logic) return std_logic is
+architecture behavioral of dig_add is
+  function fulladder(input1, input2, cin : std_logic) return std_logic is
   begin
-    return (input1 xor input2 xor Cin);
+    return (input1 xor input2 xor cin);
   end function;
 
-  function CarryOut(input1, input2, Cin : std_logic) return std_logic is
+  function carryout(input1, input2, cin : std_logic) return std_logic is
   begin
-    return ((input1 and input2) or (Cin and (input1 xor input2)));
+    return ((input1 and input2) or (cin and (input1 xor input2)));
   end function;
-  signal Carry : std_logic;
-  signal temp  : std_logic_vector(Bits downto 0);
+  signal carry : std_logic;
+  signal temp  : std_logic_vector(bits downto 0);
 begin
   process (a, b, c_i)
   begin
-    Carry <= c_i;
-    for i in 0 to Bits - 1 loop
-      s(i) <= FullAdder(a(i), b(i), Carry);
-      Carry <= CarryOut(a(i), b(i), Carry);
+    carry <= c_i;
+    for i in 0 to bits - 1 loop
+      s(i) <= fulladder(a(i), b(i), carry);
+      carry <= carryout(a(i), b(i), carry);
     end loop;
-    c_o <= Carry;
+    c_o <= carry;
   end process;
 
 end architecture;

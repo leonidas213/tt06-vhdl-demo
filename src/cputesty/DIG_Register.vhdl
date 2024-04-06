@@ -1,24 +1,24 @@
 LIBRARY IEEE;
   use ieee.std_logic_1164.all;
 
-entity DIG_Register is
+entity dig_register is
 
   port (
-    Q  : out std_logic;
-    D  : in  std_logic;
-    C  : in  std_logic;
+    q  : out std_logic;
+    d  : in  std_logic;
+    c  : in  std_logic;
     en : in  std_logic);
 end entity;
 
-architecture Behavioral of DIG_Register is
+architecture behavioral of dig_register is
   signal state : std_logic := '0';
 begin
-  Q <= state;
+  q <= state;
 
-  process (C)
+  process (c)
   begin
-    if rising_edge(C) and (en = '1') then
-      state <= D;
+    if rising_edge(c) and (en = '1') then
+      state <= d;
     end if;
   end process;
 end architecture;

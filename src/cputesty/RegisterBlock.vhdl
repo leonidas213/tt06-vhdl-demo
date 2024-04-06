@@ -2,18 +2,18 @@ LIBRARY IEEE;
   use ieee.std_logic_1164.all;
   use ieee.numeric_std.all;
 
-entity RegisterBlock is
+entity registerblock is
   port (
-    DataIn : in  std_logic_vector(15 downto 0);
-    WE     : in  std_logic;
+    datain : in  std_logic_vector(15 downto 0);
+    we     : in  std_logic;
     clk    : in  std_logic;
     src    : in  std_logic_vector(3 downto 0);
-    Dest   : in  std_logic_vector(3 downto 0);
-    RDest  : out std_logic_vector(15 downto 0);
-    Rsrc   : out std_logic_vector(15 downto 0));
+    dest   : in  std_logic_vector(3 downto 0);
+    rdest  : out std_logic_vector(15 downto 0);
+    rsrc   : out std_logic_vector(15 downto 0));
 end entity;
 
-architecture Behavioral of RegisterBlock is
+architecture behavioral of registerblock is
   signal s0  : std_logic;
   signal s1  : std_logic_vector(15 downto 0);
   signal s2  : std_logic;
@@ -47,12 +47,12 @@ architecture Behavioral of RegisterBlock is
   signal s30 : std_logic;
   signal s31 : std_logic_vector(15 downto 0);
 begin
-  DEMUX_GATE_4inst0: entity work.DEMUX_GATE_4
+  demux_gate_4inst0: entity demux_demux_gate_4inst_4
     generic map (
       tempval => 0)
     port map (
-      sel    => Dest,
-      p_in   => WE,
+      sel    => dest,
+      p_in   => we,
       out_0  => s0,
       out_1  => s2,
       out_2  => s4,
@@ -69,123 +69,123 @@ begin
       out_13 => s26,
       out_14 => s28,
       out_15 => s30);
-  gate1: entity work.DIG_Register_BUS -- R0
+  gate1: entity dig_register_bus -- r0
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s0,
-    Q  => s1);
-  gate2: entity work.DIG_Register_BUS -- R1
+    q  => s1);
+  gate2: entity dig_register_bus -- r1
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s2,
-    Q  => s3);
-  gate3: entity work.DIG_Register_BUS -- R2
+    q  => s3);
+  gate3: entity dig_register_bus -- r2
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s4,
-    Q  => s5);
-  gate4: entity work.DIG_Register_BUS -- R3
+    q  => s5);
+  gate4: entity dig_register_bus -- r3
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s6,
-    Q  => s7);
-  gate5: entity work.DIG_Register_BUS -- R4
+    q  => s7);
+  gate5: entity dig_register_bus -- r4
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s8,
-    Q  => s9);
-  gate6: entity work.DIG_Register_BUS -- R5
+    q  => s9);
+  gate6: entity dig_register_bus -- r5
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s10,
-    Q  => s11);
-  gate7: entity work.DIG_Register_BUS -- R6
+    q  => s11);
+  gate7: entity dig_register_bus -- r6
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s12,
-    Q  => s13);
-  gate8: entity work.DIG_Register_BUS -- R7
+    q  => s13);
+  gate8: entity dig_register_bus -- r7
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s14,
-    Q  => s15);
-  gate9: entity work.DIG_Register_BUS -- R8
+    q  => s15);
+  gate9: entity dig_register_bus -- r8
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s16,
-    Q  => s17);
-  gate10: entity work.DIG_Register_BUS -- R9
+    q  => s17);
+  gate10: entity dig_register_bus -- r9
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s18,
-    Q  => s19);
-  gate11: entity work.DIG_Register_BUS -- R10
+    q  => s19);
+  gate11: entity dig_register_bus -- r10
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s20,
-    Q  => s21);
-  gate12: entity work.DIG_Register_BUS -- R11
+    q  => s21);
+  gate12: entity dig_register_bus -- r11
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s22,
-    Q  => s23);
-  gate13: entity work.DIG_Register_BUS -- R12
+    q  => s23);
+  gate13: entity dig_register_bus -- r12
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s24,
-    Q  => s25);
-  gate14: entity work.DIG_Register_BUS -- BP
+    q  => s25);
+  gate14: entity dig_register_bus -- bp
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s26,
-    Q  => s27);
-  gate15: entity work.DIG_Register_BUS -- SP
+    q  => s27);
+  gate15: entity dig_register_bus -- sp
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s28,
-    Q  => s29);
-  gate16: entity work.DIG_Register_BUS -- RA
+    q  => s29);
+  gate16: entity dig_register_bus -- ra
   generic map (
-    Bits => 16) port map (
-    D  => DataIn,
-    C  => clk,
+    bits => 16) port map (
+    d  => datain,
+    c  => clk,
     en => s30,
-    Q  => s31);
-  MUX_GATE_BUS_4inst17: entity work.MUX_GATE_BUS_4
+    q  => s31);
+  mux_gate_bus_4inst17: entity mux_mux_gate_bus_4inst_bus_4
     generic map (
-      Bits => 16)
+      bits => 16)
     port map (
-      sel   => Dest,
+      sel   => dest,
       in_0  => s1,
       in_1  => s3,
       in_2  => s5,
@@ -202,10 +202,10 @@ begin
       in_13 => s27,
       in_14 => s29,
       in_15 => s31,
-      p_out => RDest);
-  MUX_GATE_BUS_4inst18: entity work.MUX_GATE_BUS_4
+      p_out => rdest);
+  mux_gate_bus_4inst18: entity mux_mux_gate_bus_4inst_bus_4
     generic map (
-      Bits => 16)
+      bits => 16)
     port map (
       sel   => src,
       in_0  => s1,
@@ -224,6 +224,6 @@ begin
       in_13 => s27,
       in_14 => s29,
       in_15 => s31,
-      p_out => Rsrc);
+      p_out => rsrc);
 end architecture;
 
