@@ -517,7 +517,7 @@ begin
                  s26           <= (s21 or s20);
   gate27: entity work.DIG_JK_FF
     generic map (
-      default => '0')
+      twmpvalt => '0')
     port map (
       J => s26,
       C => clk,
