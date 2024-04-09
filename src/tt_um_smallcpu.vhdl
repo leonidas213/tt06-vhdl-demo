@@ -377,7 +377,7 @@ USE ieee.numeric_std.all;
 
 entity DEMUX_GATE_4 is
   generic (
-    Default : integer );
+    tempvar : integer );
   port (
     out_0: out std_logic;
     out_1: out std_logic;
@@ -401,22 +401,22 @@ end DEMUX_GATE_4;
 
 architecture Behavioral of DEMUX_GATE_4 is
 begin
-    out_0 <= p_in when sel = "0000" else std_logic(to_unsigned(Default, 1)(0));
-    out_1 <= p_in when sel = "0001" else std_logic(to_unsigned(Default, 1)(0));
-    out_2 <= p_in when sel = "0010" else std_logic(to_unsigned(Default, 1)(0));
-    out_3 <= p_in when sel = "0011" else std_logic(to_unsigned(Default, 1)(0));
-    out_4 <= p_in when sel = "0100" else std_logic(to_unsigned(Default, 1)(0));
-    out_5 <= p_in when sel = "0101" else std_logic(to_unsigned(Default, 1)(0));
-    out_6 <= p_in when sel = "0110" else std_logic(to_unsigned(Default, 1)(0));
-    out_7 <= p_in when sel = "0111" else std_logic(to_unsigned(Default, 1)(0));
-    out_8 <= p_in when sel = "1000" else std_logic(to_unsigned(Default, 1)(0));
-    out_9 <= p_in when sel = "1001" else std_logic(to_unsigned(Default, 1)(0));
-    out_10 <= p_in when sel = "1010" else std_logic(to_unsigned(Default, 1)(0));
-    out_11 <= p_in when sel = "1011" else std_logic(to_unsigned(Default, 1)(0));
-    out_12 <= p_in when sel = "1100" else std_logic(to_unsigned(Default, 1)(0));
-    out_13 <= p_in when sel = "1101" else std_logic(to_unsigned(Default, 1)(0));
-    out_14 <= p_in when sel = "1110" else std_logic(to_unsigned(Default, 1)(0));
-    out_15 <= p_in when sel = "1111" else std_logic(to_unsigned(Default, 1)(0));
+    out_0 <= p_in when sel = "0000" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_1 <= p_in when sel = "0001" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_2 <= p_in when sel = "0010" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_3 <= p_in when sel = "0011" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_4 <= p_in when sel = "0100" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_5 <= p_in when sel = "0101" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_6 <= p_in when sel = "0110" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_7 <= p_in when sel = "0111" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_8 <= p_in when sel = "1000" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_9 <= p_in when sel = "1001" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_10 <= p_in when sel = "1010" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_11 <= p_in when sel = "1011" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_12 <= p_in when sel = "1100" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_13 <= p_in when sel = "1101" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_14 <= p_in when sel = "1110" else std_logic(to_unsigned(tempvar, 1)(0));
+    out_15 <= p_in when sel = "1111" else std_logic(to_unsigned(tempvar, 1)(0));
 end Behavioral;
 
 
@@ -522,7 +522,7 @@ architecture Behavioral of RegisterBlock is
 begin
   gate0: entity work.DEMUX_GATE_4
     generic map (
-      Default => 0)
+      tempvar => 0)
     port map (
       sel => Dest,
       p_in => WE,
@@ -770,7 +770,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 
 entity DIG_JK_FF is
-  generic (Default : std_logic);  
+  generic (tempvar : std_logic);  
   port (
     Q: out std_logic;
     notQ: out std_logic;
@@ -780,7 +780,7 @@ entity DIG_JK_FF is
 end DIG_JK_FF;
 
 architecture Behavioral of DIG_JK_FF is
-  signal temp: std_logic := Default;
+  signal temp: std_logic := tempvar;
 begin
   process (C)
   begin
@@ -829,40 +829,6 @@ begin
 
     Q <= state;
     notQ <= NOT( state );
-end Behavioral;
-
-
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
-
-entity COMP_GATE_UNSIGNED is
-  generic ( Bits : integer );
-  port (
-    gr: out std_logic;
-    eq: out std_logic;
-    le: out std_logic;
-    a: in std_logic_vector ((Bits-1) downto 0);
-    b: in std_logic_vector ((Bits-1) downto 0) );
-end COMP_GATE_UNSIGNED;
-
-architecture Behavioral of COMP_GATE_UNSIGNED is
-begin
-  process(a, b)
-  begin
-    if (a > b ) then
-      le <= '0';
-      eq <= '0';
-      gr <= '1';
-    elsif (a < b) then
-      le <= '1';
-      eq <= '0';
-      gr <= '0';
-    else
-      le <= '0';
-      eq <= '1';
-      gr <= '0';
-    end if;
-  end process;
 end Behavioral;
 
 
@@ -1215,7 +1181,7 @@ entity tt_um_smallcpu is
     uo_out: out std_logic_vector(7 downto 0);
     uio_out: out std_logic_vector(7 downto 0);
     uio_oe: out std_logic_vector(7 downto 0));
-end tt_um_smallcpu ;
+end tt_um_smallcpu;
 
 architecture Behavioral of tt_um_smallcpu is
   signal muxA: std_logic;
@@ -1672,7 +1638,7 @@ begin
   s57 <= (s60 AND ioW);
   gate22: entity work.DIG_JK_FF
     generic map (
-      Default => '0')
+      tempvar => '0')
     port map (
       J => s61,
       C => s12,
@@ -1804,7 +1770,7 @@ begin
   FlagOut(1) <= s19;
   FlagOut(2) <= s20;
   FlagOut(15 downto 3) <= "0000000000000";
-  gate40: entity work.COMP_GATE_UNSIGNED
+  gate40: entity work.COMP_GATE_SIGNED
     generic map (
       Bits => 16)
     port map (
@@ -1861,7 +1827,7 @@ begin
       in_0 => "0000000000000000",
       in_1 => s58,
       p_out => s59);
-  gate49: entity work.COMP_GATE_UNSIGNED
+  gate49: entity work.COMP_GATE_SIGNED
     generic map (
       Bits => 16)
     port map (
@@ -1885,7 +1851,7 @@ begin
   RandomNUM(13) <= s91;
   RandomNUM(14) <= s93;
   RandomNUM(15) <= s95;
-  gate50: entity work.COMP_GATE_UNSIGNED
+  gate50: entity work.COMP_GATE_SIGNED
     generic map (
       Bits => 16)
     port map (
